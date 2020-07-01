@@ -1,0 +1,181 @@
+{include file="Index:base" /}
+
+		<block name="content">
+
+				<!-- 中间部分开始 -->
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<!-- 面包屑导航 -->
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:url('Index/index')}">首页</a>
+							</li>
+							<li class="active">修改商品</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+
+						<!-- 页面导航 -->
+						<div class="page-header">
+							<h1>
+								修改商品
+								<a class="btn btn-info btn-sm pull-right" href="{:url('index')}">
+									<i class="icon-reply icon-only"></i>
+								</a>
+							</h1>
+						</div>
+
+						<div class="row" style="margin-top:35px;">
+							<div class="col-xs-12">
+								<form class="form-horizontal" role="form" action="{:url('mod')}" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="id" value="{$data['id']}">
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right"> 商品名称 </label>
+										<div class="col-sm-10">
+											<input class="col-xs-10 col-sm-5" type="text" placeholder="商品名称" name="name" value="{$data['name']}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right"> 商品分类 </label>
+										<div class="col-sm-10">
+											<select name="tid">
+												{foreach name="tlist" item="v"}
+													{if condition="$v.id eq $data.tid"}
+														<option value="{$v.id}" selected>{$v.name}</option>
+													{else /}
+														<option value="{$v.id}">{$v.name}</option>
+													{/if}
+												{/foreach}
+											</select>
+											<!-- <input class="col-xs-10 col-sm-5" placeholder="商品名称" type="text" name="title"> -->
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right"> 品牌 </label>
+										<div class="col-sm-10">
+											<select name="bid">
+												{foreach name="blist" item="v"}
+													{if condition="$v.id eq $data.bid"}
+														<option value="{$v.id}" selected>{$v.name}</option>
+													{else /}
+														<option value="{$v.id}">{$v.name}</option>
+													{/if}
+												{/foreach}
+											</select>
+											<!-- <input class="col-xs-10 col-sm-5" placeholder="商品名称" type="text" name="title"> -->
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right"> 价格 </label>
+										<div class="col-sm-10">
+											<input class="col-xs-10 col-sm-5" placeholder="价格" type="text" name="price" value="{$data['price']}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right"> 库存 </label>
+										<div class="col-sm-10">
+											<input class="col-xs-10 col-sm-5" placeholder="库存" type="text" name="nums" value="{$data['nums']}">
+										</div>
+									</div>
+									
+									
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right">图片 </label>
+										<div class="col-sm-10">
+											<input class="col-xs-10 col-sm-5" type="file" name="img">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right"> 详情 </label>
+										<div class="col-sm-10">
+											<textarea name="details" id="details" cols="80" rows="7">{$data['details']}</textarea>
+										</div>
+									</div>
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-2 col-md-10">
+											<button class="btn btn-info" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+				<!-- 中间部分结束 -->
+
+								
+		</block>
+		<block name="privatejs">
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript">
+			jQuery(function($) {
+
+				//设置当前页面的菜单高亮显示 开始
+				var nownav = "#sidebar a[href*=Video]";
+				var parentattr = $(nownav).parent().parent().attr("class");
+				$(nownav).parent().addClass('active');
+				if (parentattr == 'submenu') {
+					$(nownav).parent().parent().parent().addClass('active open');
+				};
+				//设置当前页面的菜单高亮显示 结束
+
+			});
+		</script>
+			<link rel="stylesheet" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+    <script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+    <script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+    <script>
+        var editor;
+        KindEditor.ready(function(K) {
+            editor = K.create('textarea[name="details"]', {
+                allowFileManager : true
+            });
+            K('input[name=getHtml]').click(function(e) {
+                alert(editor.html());
+            });
+            K('input[name=isEmpty]').click(function(e) {
+                alert(editor.isEmpty());
+            });
+            K('input[name=getText]').click(function(e) {
+                alert(editor.text());
+            });
+            K('input[name=selectedHtml]').click(function(e) {
+                alert(editor.selectedHtml());
+            });
+            K('input[name=setHtml]').click(function(e) {
+                editor.html('<h3>Hello KindEditor</h3>');
+            });
+            K('input[name=setText]').click(function(e) {
+                editor.text('<h3>Hello KindEditor</h3>');
+            });
+            K('input[name=insertHtml]').click(function(e) {
+                editor.insertHtml('<strong>插入HTML</strong>');
+            });
+            K('input[name=appendHtml]').click(function(e) {
+                editor.appendHtml('<strong>添加HTML</strong>');
+            });
+            K('input[name=clear]').click(function(e) {
+                editor.html('');
+            });
+        });
+    </script>
+	</block>
+

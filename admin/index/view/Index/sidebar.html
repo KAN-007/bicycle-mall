@@ -1,0 +1,59 @@
+        <!-- 侧边菜单开始 -->
+        <div class="sidebar" id="sidebar">
+            <script type="text/javascript">
+                try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+            </script>
+            <ul class="nav nav-list">
+                <li>
+                    <a id="indexpage" href="{:url('Index/index')}">
+                        <i class="icon-dashboard"></i>
+                        <span class="menu-text"> 控制台 </span>
+                    </a>
+                </li>
+                {if condition="$status eq 1"}
+                    <li>
+                        <a href="{:url('Type/index')}">
+                            <i class="icon-group"></i>
+                            <span class="menu-text"> 分类管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:url('Brand/index')}">
+                            <i class="icon-group"></i>
+                            <span class="menu-text"> 品牌管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:url('Goods/index')}">
+                            <i class="icon-group"></i>
+                            <span class="menu-text"> 商品管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:url('User/index')}">
+                            <i class="icon-group"></i>
+                            <span class="menu-text"> 用户管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:url('Order/evaluate')}">
+                            <i class="icon-group"></i>
+                            <span class="menu-text"> 评价管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:url('Order/index')}">
+                            <i class="icon-group"></i>
+                            <span class="menu-text"> 订单管理 </span>
+                        </a>
+                    </li>
+                  
+                {/if}
+             
+
+
+            </ul>
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+            </div>
+        </div>

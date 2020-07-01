@@ -1,0 +1,119 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>PhotoShop微课学习网</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="__PUBLIC__/demo/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="__PUBLIC__/demo/style.css">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-center justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="index.html"><img src="__PUBLIC__/demo/img/core-img/logo5.png" alt=""></a>
+                        </div>
+
+                        <!-- Search & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            <!-- Top Search Area -->
+                            {if condition="session('UNAME') eq ''"}
+                            <div class="login-area">
+   
+                                <a href="{:url('I/login')}"><span>登录</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Login Area -->
+                            <div class="login-area">
+                                <a href="{:url('I/zhuce')}"><span>注册</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                            {else /}
+                            欢迎你，{:session('UNAME')}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:url('I/out')}">退出</a>
+                            {/if}
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="egames-main-menu" id="sticker">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="egamesNav">
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{:url('Index/Index')}">首页</a></li>
+                                    <li><a href="{:url('Video/Video')}">教学视频</a>
+                                        <ul class="dropdown">
+                                            {foreach name="video" key="k" item="v"}
+                                                <li><a href="{:url('Video/detail',['id'=>$v.id])}">{$v.title}</a></li>
+                                            {/foreach}
+                                            
+                                        </ul>
+                                    </li>
+                                    <li><a href="{:url('Kejian/Kejian')}">课程总结</a>
+                                        <ul class="dropdown">
+                                            {foreach name="kejian" key="k" item="v"}
+                                                <li><a href="{:url('Kejian/detail',['id'=>$v.id])}">{$v.title}</a></li>
+                                            {/foreach}
+                                        </ul>
+                                    </li>
+                                    <li><a href="{:url('Job/Job')}">学生作业</a>
+                                        <ul class="dropdown">
+                                            {foreach name="job" key="k" item="v"}
+                                                <li><a href="{:url('Job/detail',['id'=>$v.id])}">{$v.title}</a></li>
+                                            {/foreach}
+                                            
+                                        </ul>
+                                    </li>
+                                    <li><a href="{:url('I/work')}">我的成绩</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+
+                        <!-- Top Social Info -->
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>

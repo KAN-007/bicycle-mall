@@ -1,0 +1,6 @@
+前后台两个配置文件，
+前台地址：localhost/shop/index.php
+后台地址：localhost/shop/admin.php
+ 
+*** 目录文件夹下面的“shop.sql”数据库用phpadmin中的SQL语句导入
+***  管理员 admin ，密码1

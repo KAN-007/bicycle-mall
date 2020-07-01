@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>新华二手自行车</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/demo/res/static/css/mainB.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/demo/res/layui/css/layui.css">
+  <script type="text/javascript" src="__PUBLIC__/demo/res/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+<style type="text/css">
+#menu { 
+    font:12px verdana, arial, sans-serif;
+    text-align: center; 
+  }
+
+#menu ul {
+    list-style: none;
+    margin-left: 50px;
+}
+ 
+#menu li {
+    display: inline;
+    line-height: 40px;
+    float:left
+}
+
+</style>
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a href="{:url('index')}">首页</a>
+      </p>
+        <div class="sn-quick-menu">
+        {if condition="session('UNAME') eq ''"}
+          <div class="login"><a href="{:url('I/login')}"><font color="blue">登录</font></a></div>
+          <div ><a href="{:url('I/register')}">注册</a></div>
+        {else /}
+          <div class="login">欢迎您，{:session('UNAME')}</div>
+          <div class="login"><a href="{:url('I/index')}"><font color="blue">个人中心</font></a></div>
+          <div class="login"><a href="{:url('I/logOut')}">退出</a></div>
+          <div class="sp-cart"><a href="{:url('Index/shopcar')}">购物车</a><span>{if condition="$total neq 0"}{$total}{/if}</span></div>
+        {/if}
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="mallLogo">
+          <a href="#" title="新华二手自行车">
+            <img src="__PUBLIC__/demo/res/static/img/logo1.png">
+          </a>
+        </h1>
+        <div class="mallSearch">
+          <form action="{:url('select')}" class="layui-form" method="post" name="key" novalidate>
+            <input type="text" name="key" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品" value="{$key}">
+            <button class="layui-btn" onclick="SendForm();"  lay-submit lay-filter="formDemo">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <input type="hidden" name="" value="">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content content-nav-base commodity-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <a href="{:url('typelist')}" class="active">所有商品</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="commod-cont-wrap">
+      <div class="commod-cont w1200 layui-clear">
+        <div class="left-nav">
+          <div class="title">所有品牌</div>
+          <div class="list-box">
+            <dl>
+             <dt></dt>
+             {foreach name="left_list" item="vo"}
+              <dd><a href="{:url('typelist',['tid'=>$vo.id])}">{$vo.name}</a></dd>
+             {/foreach}
+            </dl>
+          </div>
+        </div>
+        <div class="right-cont-wrap">
+          <div class="right-cont">
+
+            <div class="cont-list layui-clear" id="list-cont">
+              {foreach name="list" item="vo"}
+              <div class="item">
+                <div class="img">
+                  <a href="{:url('details',['id'=>$vo.id])}"><img src="__PUBLIC__/{$vo.pic}" width="280px" height="300px;"></a>
+                </div>
+                <div class="text">
+                  <p class="title">{$vo.name}</p>
+                  <p class="price">
+                    <span class="pri">￥{$vo.price}</span>
+                    <span class="nub">库存：{$vo.nums}</span>
+                  </p>
+                </div>
+              </div>
+              {/foreach}
+
+
+            </div>
+             <div id="menu"  class="layui-box layui-laypage layui-laypage-default"><ul style="list-style:none;padding:0;margin:0;">{$page}</ul></div>
+          </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+<script>
+
+  layui.config({
+    base: '__PUBLIC__/demo/res/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+  }).use(['mm','laypage','jquery'],function(){
+      var laypage = layui.laypage,$ = layui.$,
+     mm = layui.mm;
+       laypage.render({
+        elem: 'demo0'
+        ,count: 100 //数据总数
+      });
+
+
+    // 模版引擎导入
+    //  var html = demo.innerHTML;
+    //  var listCont = document.getElementById('list-cont');
+    //  // console.log(layui.router("#/about.html"))
+    // mm.request({
+    //     url: '__PUBLIC__/demo/json/commodity.json',
+    //     success : function(res){
+    //       console.log(res)
+    //       listCont.innerHTML = mm.renderHtml(html,res)
+    //     },
+    //     error: function(res){
+    //       console.log(res);
+    //     }
+    //   })
+
+    $('.sort a').on('click',function(){
+      $(this).addClass('active').siblings().removeClass('active');
+    })
+    $('.list-box dt').on('click',function(){
+      if($(this).attr('off')){
+        $(this).removeClass('active').siblings('dd').show()
+        $(this).attr('off','')
+      }else{
+        $(this).addClass('active').siblings('dd').hide()
+        $(this).attr('off',true)
+      }
+    })
+
+});
+function SendForm() 
+     {
+        document.key.submit();
+     }
+</script>
+
+
+</body>
+</html>
